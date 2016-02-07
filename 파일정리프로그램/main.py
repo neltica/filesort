@@ -117,6 +117,30 @@ def folderSelectCallback(event):
     pass
 
 
+def resizeImage(width,height):
+
+    if width>=height:
+        if width>=300:
+            resultWidth=300
+            resultHeight=height*(300/float(width))
+            pass
+        else:
+            resultWidth=width
+            resultHeight=height
+            pass
+        pass
+    else:
+        if height>=300:
+            resultHeight=300
+            resultWidth=width*(300/float(height))
+            pass
+        else:
+            resultWidth=width
+            resultHeight=height
+            pass
+        pass
+    return (int(resultWidth),int(resultHeight))
+
 def imageListClick(event):
     print "click"
     global imageListBox
@@ -127,7 +151,11 @@ def imageListClick(event):
 
     print path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))
     image=Image.open(unicode(path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))))
-    image=image.resize((300,300),Image.ANTIALIAS)
+
+    print image.width,image.height
+    imageSize=resizeImage(image.width,image.height)
+    print imageSize
+    image=image.resize((imageSize[0],imageSize[1]),Image.ANTIALIAS)
     photo=ImageTk.PhotoImage(image)
     imageLabel.config(image=photo)
     imageLabel.image=photo
