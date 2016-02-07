@@ -163,9 +163,11 @@ def imageListClick(event):
     folderNameSelectWindow=Tkinter.Toplevel()
     folderNameSelectWindow.focus_set()
 
+    print folderListBox.get(0,'end')
+
     number=1
-    for i in folderListText:
-        Tkinter.Label(folderNameSelectWindow,text=str(number)+i).pack()
+    for i in folderListBox.get(0,'end'):
+        Tkinter.Label(folderNameSelectWindow,text=i).pack()
         number+=1
 
     folderNameSelectWindow.bind('<Key>',folderSelectCallback)
