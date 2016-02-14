@@ -100,7 +100,11 @@ def folderSelectCallback(event):
     import os
 
     if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0]))):
+        import tkMessageBox
+        tkMessageBox.showinfo("already exists!","already exists!")
+
         print "already exists!!!"
+
         pass
     else:
         originFile=open(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
