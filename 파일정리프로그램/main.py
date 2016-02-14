@@ -100,6 +100,7 @@ def folderSelectCallback(event):
     import os
 
     if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0]))):
+        print "already exists!!!"
         pass
     else:
         originFile=open(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
@@ -113,6 +114,7 @@ def folderSelectCallback(event):
         pass
 
     event.widget.destroy()
+
 
     pass
 
@@ -197,7 +199,7 @@ folderRenameButton=Tkinter.Button(controlFrame,text="Rename",command=folderRenam
 
 filePathEntry = Tkinter.Entry(controlFrame)
 
-imageListBox = Tkinter.Listbox(controlFrame)
+imageListBox = Tkinter.Listbox(controlFrame,selectmode='single')
 
 folderListBox=Tkinter.Listbox(controlFrame)
 
