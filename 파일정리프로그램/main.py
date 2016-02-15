@@ -85,6 +85,12 @@ def folderRenameButtonCallback():
 
     renameEntry.bind('<Return>',folderInsertEntryCallback)
 
+def askFileNameCallback(event):
+    fileName=event.widget.get()
+    if fileName!="":
+        pass
+    event.widget.master.destroy()
+    pass
 
 
 
@@ -100,10 +106,27 @@ def folderSelectCallback(event):
     import os
 
     if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0]))):
-        import tkMessageBox
-        tkMessageBox.showinfo("already exists!","already exists!")
-
         print "already exists!!!"
+
+        askFileNameWindow=Tkinter.Toplevel()
+        askFIleNameLabel=Tkinter.Label(askFileNameWindow,text="already exists!\ninsert file Name")
+        askFileNameEntry=Tkinter.Entry(askFileNameWindow)
+        askFIleNameLabel.pack()
+        askFileNameEntry.pack()
+        askFileNameEntry.focus_set()
+
+        for i in xrange(1,1024,1):
+            fileName=(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0])))
+            dotIndex=fileName.rfind('.')
+            if not os.path.exists( fileName[:dotIndex]+str(i)+fileName[dotIndex:] ):
+                print fileName[:dotIndex]+str(i)+fileName[dotIndex:]
+                fileName=fileName[:dotIndex]+str(i)+fileName[dotIndex:]
+                break
+
+        askFileNameEntry.delete(0,'end')
+        askFileNameEntry.insert(0,fileName)
+
+        askFileNameEntry.bind('<Return>',askFileNameCallback)
 
         pass
     else:
