@@ -88,6 +88,14 @@ def folderRenameButtonCallback():
 def askFileNameCallback(event):
     fileName=event.widget.get()
     if fileName!="":
+        originFile=open(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
+        copyFile=open(fileName,'wb')
+
+        for i in originFile:
+            copyFile.write(i)
+
+        originFile.close()
+        copyFile.close()
         pass
     event.widget.master.destroy()
     pass
@@ -118,9 +126,9 @@ def folderSelectCallback(event):
         for i in xrange(1,1024,1):
             fileName=(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0])))
             dotIndex=fileName.rfind('.')
-            if not os.path.exists( fileName[:dotIndex]+str(i)+fileName[dotIndex:] ):
-                print fileName[:dotIndex]+str(i)+fileName[dotIndex:]
-                fileName=fileName[:dotIndex]+str(i)+fileName[dotIndex:]
+            if not os.path.exists( fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:] ):
+                print fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:]
+                fileName=fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:]
                 break
 
         askFileNameEntry.delete(0,'end')
