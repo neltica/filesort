@@ -193,7 +193,7 @@ def imageListClick(event):
     for i in xrange(nowIndex,imageListBox.size(),1):
 
         print path+"/"+imageListBox.get(nowIndex)
-        image=Image.open(unicode(path+"/"+imageListBox.get(nowIndex)))
+        image=Image.open(unicode(path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))))
 
         print image.width,image.height
         imageSize=resizeImage(image.width,image.height)
