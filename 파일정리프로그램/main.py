@@ -107,13 +107,14 @@ def folderSelectCallback(event):
     global imageListBox
     global path
 
+    nowIndex=int(imageListBox.curselection()[0])
     print event.keysym
 
-    print folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0]))
+    print folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
 
     import os
 
-    if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0]))):
+    if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
         print "already exists!!!"
 
         askFileNameWindow=Tkinter.Toplevel()
@@ -124,7 +125,7 @@ def folderSelectCallback(event):
         askFileNameEntry.focus_set()
 
         for i in xrange(1,1024,1):
-            fileName=(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0])))
+            fileName=(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex))
             dotIndex=fileName.rfind('.')
             if not os.path.exists( fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:] ):
                 print fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:]
@@ -138,8 +139,8 @@ def folderSelectCallback(event):
 
         pass
     else:
-        originFile=open(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
-        copyFile=open(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'wb')
+        originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
+        copyFile=open(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex),'wb')
 
         for i in originFile:
             copyFile.write(i)
@@ -149,8 +150,8 @@ def folderSelectCallback(event):
         pass
 
     event.widget.destroy()
-
-
+    imageListBox.select_clear(nowIndex,nowIndex)
+    imageListBox.select_set(nowIndex+1)
     pass
 
 
@@ -185,30 +186,36 @@ def imageListClick(event):
     global imageLabel
     global path
     global folderListText
+    global app
 
-    print path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))
-    image=Image.open(unicode(path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))))
+    nowIndex=int(imageListBox.curselection()[0])
 
-    print image.width,image.height
-    imageSize=resizeImage(image.width,image.height)
-    print imageSize
-    image=image.resize((imageSize[0],imageSize[1]),Image.ANTIALIAS)
-    photo=ImageTk.PhotoImage(image)
-    imageLabel.config(image=photo)
-    imageLabel.image=photo
+    for i in xrange(nowIndex,imageListBox.size(),1):
 
-    folderNameSelectWindow=Tkinter.Toplevel()
-    folderNameSelectWindow.focus_set()
+        print path+"/"+imageListBox.get(nowIndex)
+        image=Image.open(unicode(path+"/"+imageListBox.get(nowIndex)))
 
-    print folderListBox.get(0,'end')
+        print image.width,image.height
+        imageSize=resizeImage(image.width,image.height)
+        print imageSize
+        image=image.resize((imageSize[0],imageSize[1]),Image.ANTIALIAS)
+        photo=ImageTk.PhotoImage(image)
+        imageLabel.config(image=photo)
+        imageLabel.image=photo
 
-    number=1
-    for i in folderListBox.get(0,'end'):
-        Tkinter.Label(folderNameSelectWindow,text=i).pack()
-        number+=1
+        folderNameSelectWindow=Tkinter.Toplevel()
+        folderNameSelectWindow.focus_set()
 
-    folderNameSelectWindow.bind('<Key>',folderSelectCallback)
+        print folderListBox.get(0,'end')
 
+        number=1
+        for i in folderListBox.get(0,'end'):
+            Tkinter.Label(folderNameSelectWindow,text=i).pack()
+            number+=1
+
+        folderNameSelectWindow.bind('<Key>',folderSelectCallback)
+
+        app.wait_window(folderNameSelectWindow)
 
 
 
