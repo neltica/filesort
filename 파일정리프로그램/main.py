@@ -110,11 +110,13 @@ def folderSelectCallback(event):
     nowIndex=int(imageListBox.curselection()[0])
     print event.keysym
 
-    print folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
 
     import os
 
-    if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
+    if event.keysym == 'Escape':
+        print "push escape"
+        pass
+    elif os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
         print "already exists!!!"
 
         askFileNameWindow=Tkinter.Toplevel()
@@ -140,7 +142,9 @@ def folderSelectCallback(event):
         event.widget.wait_window(askFileNameWindow)
 
         pass
+
     else:
+        print folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
         originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
         copyFile=open(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex),'wb')
 
