@@ -137,6 +137,8 @@ def folderSelectCallback(event):
 
         askFileNameEntry.bind('<Return>',askFileNameCallback)
 
+        event.widget.wait_window(askFileNameWindow)
+
         pass
     else:
         originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
