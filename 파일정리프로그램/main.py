@@ -106,7 +106,7 @@ def folderSelectCallback(event):
     global folderListText
     global imageListBox
     global path
-
+    global flag
     nowIndex=int(imageListBox.curselection()[0])
     print event.keysym
 
@@ -115,6 +115,12 @@ def folderSelectCallback(event):
 
     if event.keysym == 'Escape':
         print "push escape"
+        flag=True
+        pass
+    elif event.keysym == 'space':
+        print "push space"
+        imageListBox.select_clear(nowIndex,nowIndex)
+        imageListBox.select_set(nowIndex+1)
         pass
     elif os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
         print "already exists!!!"
@@ -141,6 +147,8 @@ def folderSelectCallback(event):
 
         event.widget.wait_window(askFileNameWindow)
 
+        imageListBox.select_clear(nowIndex,nowIndex)
+        imageListBox.select_set(nowIndex+1)
         pass
 
     else:
@@ -153,11 +161,11 @@ def folderSelectCallback(event):
 
         originFile.close()
         copyFile.close()
+        imageListBox.select_clear(nowIndex,nowIndex)
+        imageListBox.select_set(nowIndex+1)
         pass
 
     event.widget.destroy()
-    imageListBox.select_clear(nowIndex,nowIndex)
-    imageListBox.select_set(nowIndex+1)
     pass
 
 
@@ -193,10 +201,15 @@ def imageListClick(event):
     global path
     global folderListText
     global app
+    global flag
 
     nowIndex=int(imageListBox.curselection()[0])
 
     for i in xrange(nowIndex,imageListBox.size(),1):
+
+        if flag:
+            flag=False
+            break
 
         print path+"/"+imageListBox.get(nowIndex)
         image=Image.open(unicode(path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))))
@@ -225,10 +238,12 @@ def imageListClick(event):
 
 
 
+
+
 extension = ['jpg', 'gif', 'jpeg','png']
 folderListText=[]
 path=''
-
+flag=False
 
 baseRow=0
 baseColumn=0
