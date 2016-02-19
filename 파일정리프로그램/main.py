@@ -51,6 +51,12 @@ def deleteFolderButtonCallback():
     folderListBox.delete(folderListBox.index('active'))
     del folderListText[folderListBox.index('active')]
 
+    end=len(folderListText)
+    for i in xrange(0,end,1):
+        folderListBox.delete(0)
+        folderListBox.insert('end',str(i+1)+'. '+folderListText[i])
+
+
     for i in folderListText:
         print i
 
@@ -285,7 +291,7 @@ imageListBox.grid(row=baseRow+1, column=baseColumn+0, columnspan=2)
 folderListBox.grid(row=baseRow+0,column=baseColumn+2,rowspan=2)
 folderAddButton.grid(row=baseRow+0,column=baseColumn+3)
 folderDeleteButton.grid(row=baseRow+1,column=baseColumn+3)
-folderRenameButton.grid(row=baseRow+2,column=baseColumn+3)
+#folderRenameButton.grid(row=baseRow+2,column=baseColumn+3)
 
 
 imageListBox.bind('<<ListboxSelect>>',imageListClick)
