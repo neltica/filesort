@@ -114,6 +114,9 @@ def folderSelectCallback(event):
         imageListBox.select_clear(nowIndex,nowIndex)
         imageListBox.select_set(nowIndex+1)
         pass
+
+    elif event.keysym=='c':
+        pass
     elif os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
         print "already exists!!!"
 
@@ -239,6 +242,8 @@ def imageListClick(event):
         folderNameSelectWindow.focus_set()
 
         print folderListBox.get(0,'end')
+
+        Tkinter.Label(folderNameSelectWindow,text='create folder = \'c\'').pack()
 
         number=1
         for i in folderListBox.get(0,'end'):
