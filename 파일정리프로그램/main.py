@@ -94,7 +94,8 @@ def folderRenameButtonCallback():
 def askFileNameCallback(event):
     event.widget.master.destroy()
 
-
+def folderNameInsertEntryCallback(event):
+    event.widget.master.destroy()
 
 def folderSelectCallback(event):
     global folderListText
@@ -116,6 +117,19 @@ def folderSelectCallback(event):
         pass
 
     elif event.keysym=='c':
+        folderNameInsertWindow=Tkinter.Toplevel(event.widget)
+        folderNameInsertLabel=Tkinter.Label(folderNameInsertWindow,text='Insert folder name')
+        content=Tkinter.StringVar()
+        folderNameInsertEntry=Tkinter.Entry(folderNameInsertWindow,textvariable=content)
+        folderNameInsertLabel.pack()
+        folderNameInsertEntry.pack()
+        folderNameInsertEntry.focus_set()
+
+        folderNameInsertEntry.bind('<Return>',folderNameInsertEntryCallback)
+
+
+        event.widget.wait_window(folderNameInsertWindow)
+
         pass
     elif os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
         print "already exists!!!"
