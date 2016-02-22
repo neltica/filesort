@@ -61,11 +61,11 @@ def addFolderButtonCallback():
             path=str(folderListBox.size()+1)+'. '+path[path.rfind('/')+1:]
             folderListBox.insert('end',path)
 
-        for i in folderListText:
-            print i
     else:
         print "already folder exist."
 
+    for i in folderListText:
+            print i
 def deleteFolderButtonCallback():
     global folderListBox
     folderListBox.delete(folderListBox.index('active'))
