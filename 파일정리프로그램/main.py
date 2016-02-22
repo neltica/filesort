@@ -38,13 +38,33 @@ def addFolderButtonCallback():
     global folderListBox
     global folderListText
     path=tkFileDialog.askdirectory()
-    folderListText.append(path)
-    if path!="":
-        path=str(folderListBox.size()+1)+'. '+path[path.rfind('/')+1:]
-        folderListBox.insert('end',path)
+    print 'add folder path='+path
 
-    for i in folderListText:
-        print i
+    askFolderNameWindow=Tkinter.Toplevel(app)
+    askFolderNameLabel=Tkinter.Label(askFolderNameWindow,text="insert folder Name")
+    content=Tkinter.StringVar()
+    askFolderNameEntry=Tkinter.Entry(askFolderNameWindow,textvariable=content)
+    askFolderNameLabel.pack()
+    askFolderNameEntry.pack()
+    askFolderNameEntry.focus_set()
+
+    askFolderNameEntry.bind('<Return>',folderNameInsertEntryCallback)
+
+    app.wait_window(askFolderNameWindow)
+
+    path=path+"/"+content.get()
+    import os
+    if not os.path.isdir(path):
+        os.mkdir(path)
+        folderListText.append(path)
+        if path!="":
+            path=str(folderListBox.size()+1)+'. '+path[path.rfind('/')+1:]
+            folderListBox.insert('end',path)
+
+        for i in folderListText:
+            print i
+    else:
+        print "already folder exist."
 
 def deleteFolderButtonCallback():
     global folderListBox
