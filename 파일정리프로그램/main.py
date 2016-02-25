@@ -133,14 +133,14 @@ def folderSelectCallback(event):
     print "press key is "+event.keysym
 
 
-    import os
-
     if event.keysym == 'Escape':
         flag=True
+        event.widget.destroy()
         pass
     elif event.keysym == 'space':
         imageListBox.select_clear(nowIndex,nowIndex)
         imageListBox.select_set(nowIndex+1)
+        event.widget.destroy()
         pass
 
     elif event.keysym=='c':
@@ -157,8 +157,43 @@ def folderSelectCallback(event):
 
         event.widget.wait_window(folderNameInsertWindow)
 
+        folderPath= folderListText[len(folderListText)-1][:folderListText[len(folderListText)-1].rfind('/')]
+        print "add folder path="+ folderPath
+
+        folderPath=folderPath+"/"+content.get()
+        import os
+        if not os.path.isdir(folderPath):
+            os.mkdir(folderPath)
+            folderListText.append(folderPath)
+            if folderPath!="":
+                folderPath=str(folderListBox.size()+1)+'. '+folderPath[folderPath.rfind('/')+1:]
+                folderListBox.insert('end',folderPath)
+
+                print "original image file path is "+folderListText[folderListBox.size()-1]+"/"+imageListBox.get(nowIndex)
+                print "copy image file path is "+folderListText[folderListBox.size()-1]+"/"+imageListBox.get(nowIndex)
+                originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
+                copyFile=open(folderListText[folderListBox.size()-1]+"/"+imageListBox.get(nowIndex),'wb')
+
+                for i in originFile:
+                    copyFile.write(i)
+
+                originFile.close()
+                copyFile.close()
+
+                for i in folderListText:
+                    print i
+
+                imageListBox.select_clear(nowIndex,nowIndex)
+                imageListBox.select_set(nowIndex+1)
+                event.widget.destroy()
+                pass
+
+        else:
+            print "already folder exist."
+
         pass
     elif int(event.keysym)-1<len(folderListText):
+        import os
         if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
             print "already exists!!!"
 
@@ -222,7 +257,6 @@ def folderSelectCallback(event):
             imageListBox.select_clear(nowIndex,nowIndex)
             imageListBox.select_set(nowIndex+1)
             pass
-
         event.widget.destroy()
         pass
 
