@@ -177,6 +177,7 @@ def folderSelectCallback(event):
                 for i in originFile:
                     copyFile.write(i)
 
+                os.remove(path+"/"+imageListBox.get(nowIndex))
                 originFile.close()
                 copyFile.close()
 
@@ -234,6 +235,7 @@ def folderSelectCallback(event):
                 for i in originFile:
                     copyFile.write(i)
 
+                os.remove(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])))
                 originFile.close()
                 copyFile.close()
                 pass
@@ -254,6 +256,7 @@ def folderSelectCallback(event):
 
             originFile.close()
             copyFile.close()
+            os.remove(path+"/"+imageListBox.get(nowIndex))
             imageListBox.select_clear(nowIndex,nowIndex)
             imageListBox.select_set(nowIndex+1)
             pass
