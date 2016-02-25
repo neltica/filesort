@@ -158,72 +158,76 @@ def folderSelectCallback(event):
         event.widget.wait_window(folderNameInsertWindow)
 
         pass
-    elif os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
-        print "already exists!!!"
+    elif int(event.keysym)-1<len(folderListText):
+        if os.path.exists(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)):
+            print "already exists!!!"
 
-        askFileNameWindow=Tkinter.Toplevel(event.widget)
-        askFIleNameLabel=Tkinter.Label(askFileNameWindow,text="already exists!\ninsert file Name")
-        content=Tkinter.StringVar()
-        askFileNameEntry=Tkinter.Entry(askFileNameWindow,textvariable=content)
-        askFIleNameLabel.pack()
-        askFileNameEntry.pack()
-        askFileNameEntry.focus_set()
+            askFileNameWindow=Tkinter.Toplevel(event.widget)
+            askFIleNameLabel=Tkinter.Label(askFileNameWindow,text="already exists!\ninsert file Name")
+            content=Tkinter.StringVar()
+            askFileNameEntry=Tkinter.Entry(askFileNameWindow,textvariable=content)
+            askFIleNameLabel.pack()
+            askFileNameEntry.pack()
+            askFileNameEntry.focus_set()
 
-        for i in xrange(1,1024,1):
-            fileName=(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex))
-            dotIndex=fileName.rfind('.')
-            if not os.path.exists( fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:] ):
-                print "new file name is "+fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:]
-                fileName=fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:]
-                break
+            for i in xrange(1,1024,1):
+                fileName=(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex))
+                dotIndex=fileName.rfind('.')
+                if not os.path.exists( fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:] ):
+                    print "new file name is "+fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:]
+                    fileName=fileName[:dotIndex]+"("+str(i)+")"+fileName[dotIndex:]
+                    break
 
-        askFileNameEntry.delete(0,'end')
-        endIndex=fileName.rfind('/')
-        fileName=fileName[endIndex+1:]
-        askFileNameEntry.insert(0,fileName)
+            askFileNameEntry.delete(0,'end')
+            endIndex=fileName.rfind('/')
+            fileName=fileName[endIndex+1:]
+            askFileNameEntry.insert(0,fileName)
 
-        askFileNameEntry.bind('<Return>',askFileNameCallback)
+            askFileNameEntry.bind('<Return>',askFileNameCallback)
 
-        event.widget.wait_window(askFileNameWindow)
+            event.widget.wait_window(askFileNameWindow)
 
-        copyPath=folderListText[int(event.keysym)-1]+"/"+content.get()
+            copyPath=folderListText[int(event.keysym)-1]+"/"+content.get()
 
-        if content.get()!="":
-            originFile=open(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
-            copyFile=open(copyPath,'wb')
+            if content.get()!="":
+                originFile=open(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
+                copyFile=open(copyPath,'wb')
 
-            print "original image file path is "+path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))
-            print "copy image file path is "+copyPath
+                print "original image file path is "+path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))
+                print "copy image file path is "+copyPath
+
+                for i in originFile:
+                    copyFile.write(i)
+
+                originFile.close()
+                copyFile.close()
+                pass
+
+
+            imageListBox.select_clear(nowIndex,nowIndex)
+            imageListBox.select_set(nowIndex+1)
+            pass
+
+        else:
+            print "original image file path is "+folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
+            print "copy image file path is "+folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
+            originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
+            copyFile=open(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex),'wb')
 
             for i in originFile:
                 copyFile.write(i)
 
             originFile.close()
             copyFile.close()
+            imageListBox.select_clear(nowIndex,nowIndex)
+            imageListBox.select_set(nowIndex+1)
             pass
 
-
-        imageListBox.select_clear(nowIndex,nowIndex)
-        imageListBox.select_set(nowIndex+1)
+        event.widget.destroy()
         pass
 
     else:
-        print "original image file path is "+folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
-        print "copy image file path is "+folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
-        originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
-        copyFile=open(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex),'wb')
-
-        for i in originFile:
-            copyFile.write(i)
-
-        originFile.close()
-        copyFile.close()
-        imageListBox.select_clear(nowIndex,nowIndex)
-        imageListBox.select_set(nowIndex+1)
-        pass
-
-    event.widget.destroy()
-    pass
+        print "folder no exist!!!"
 
 
 def resizeImage(width,height):
