@@ -37,8 +37,15 @@ def searchButtonCallback():
 def addFolderButtonCallback():
     global folderListBox
     global folderListText
-    path=tkFileDialog.askdirectory()
-    print 'add folder path='+path
+
+    if len(folderListText)==0:
+        path=tkFileDialog.askdirectory()
+        print 'add folder path='+path
+
+    else:
+        path= folderListText[len(folderListText)-1][:folderListText[len(folderListText)-1].rfind('/')]
+        print "add folder path="+ path
+
 
     askFolderNameWindow=Tkinter.Toplevel(app)
     askFolderNameLabel=Tkinter.Label(askFolderNameWindow,text="insert folder Name")
