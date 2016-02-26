@@ -9,14 +9,14 @@ def searchButtonCallback():
     global imageListBox
     global filePathEntry
     global extension
-    global path
-    path=tkFileDialog.askdirectory()
-    print path
+    global imagePath
+    imagePath=tkFileDialog.askdirectory()
+    print imagePath
     import os
-    if path!='':
+    if imagePath!='':
         filePathEntry.delete(0,'end')
-        filePathEntry.insert('end',path)
-        imageListText = os.listdir(unicode(path))
+        filePathEntry.insert('end',imagePath)
+        imageListText = os.listdir(unicode(imagePath))
         imageListBox.delete(0, 'end')
 
         regular=''
@@ -127,7 +127,7 @@ def folderNameInsertEntryCallback(event):
 def folderSelectCallback(event):
     global folderListText
     global imageListBox
-    global path
+    global imagePath
     global flag
     nowIndex=int(imageListBox.curselection()[0])
     print "press key is "+event.keysym
@@ -171,15 +171,15 @@ def folderSelectCallback(event):
 
                 print "original image file path is "+folderListText[folderListBox.size()-1]+"/"+imageListBox.get(nowIndex)
                 print "copy image file path is "+folderListText[folderListBox.size()-1]+"/"+imageListBox.get(nowIndex)
-                originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
+                originFile=open(imagePath+"/"+imageListBox.get(nowIndex),'rb')
                 copyFile=open(folderListText[folderListBox.size()-1]+"/"+imageListBox.get(nowIndex),'wb')
 
                 for i in originFile:
                     copyFile.write(i)
 
-                os.remove(path+"/"+imageListBox.get(nowIndex))
                 originFile.close()
                 copyFile.close()
+                os.remove(imagePath+"/"+imageListBox.get(nowIndex))
 
                 for i in folderListText:
                     print i
@@ -226,18 +226,18 @@ def folderSelectCallback(event):
             copyPath=folderListText[int(event.keysym)-1]+"/"+content.get()
 
             if content.get()!="":
-                originFile=open(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
+                originFile=open(imagePath+"/"+imageListBox.get(int(imageListBox.curselection()[0])),'rb')
                 copyFile=open(copyPath,'wb')
 
-                print "original image file path is "+path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))
+                print "original image file path is "+imagePath+"/"+imageListBox.get(int(imageListBox.curselection()[0]))
                 print "copy image file path is "+copyPath
 
                 for i in originFile:
                     copyFile.write(i)
 
-                os.remove(path+"/"+imageListBox.get(int(imageListBox.curselection()[0])))
                 originFile.close()
                 copyFile.close()
+                os.remove(imagePath+"/"+imageListBox.get(int(imageListBox.curselection()[0])))
                 pass
 
 
@@ -248,7 +248,7 @@ def folderSelectCallback(event):
         else:
             print "original image file path is "+folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
             print "copy image file path is "+folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex)
-            originFile=open(path+"/"+imageListBox.get(nowIndex),'rb')
+            originFile=open(imagePath+"/"+imageListBox.get(nowIndex),'rb')
             copyFile=open(folderListText[int(event.keysym)-1]+"/"+imageListBox.get(nowIndex),'wb')
 
             for i in originFile:
@@ -256,7 +256,7 @@ def folderSelectCallback(event):
 
             originFile.close()
             copyFile.close()
-            os.remove(path+"/"+imageListBox.get(nowIndex))
+            os.remove(imagePath+"/"+imageListBox.get(nowIndex))
             imageListBox.select_clear(nowIndex,nowIndex)
             imageListBox.select_set(nowIndex+1)
             pass
@@ -296,7 +296,7 @@ def imageListClick(event):
     global imageListBox
     global folderListBox
     global imageLabel
-    global path
+    global imagePath
     global folderListText
     global app
     global flag
@@ -309,8 +309,8 @@ def imageListClick(event):
             flag=False
             break
 
-        print path+"/"+imageListBox.get(nowIndex)
-        image=Image.open(unicode(path+"/"+imageListBox.get(int(imageListBox.curselection()[0]))))
+        print "select image path= "+imagePath+"/"+imageListBox.get(nowIndex)
+        image=Image.open(unicode(imagePath+"/"+imageListBox.get(int(imageListBox.curselection()[0]))))
 
         print image.width,image.height
         imageSize=resizeImage(image.width,image.height)
@@ -342,7 +342,7 @@ def imageListClick(event):
 
 extension = ['jpg', 'gif', 'jpeg','png']
 folderListText=[]
-path=''
+imagePath=''
 flag=False
 
 baseRow=0
@@ -368,6 +368,7 @@ folderListBox=Tkinter.Listbox(controlFrame)
 
 searchButton=Tkinter.Button(controlFrame,text="...",command=searchButtonCallback)
 
+folderPathButton=Tkinter.Button(controlFrame,text='Path')
 folderAddButton=Tkinter.Button(controlFrame,text="Add",command=addFolderButtonCallback)
 folderDeleteButton=Tkinter.Button(controlFrame,text="Del",command=deleteFolderButtonCallback)
 
@@ -383,8 +384,9 @@ searchButton.grid(row=baseRow+0,column=baseColumn+1)
 imageListBox.grid(row=baseRow+1, column=baseColumn+0, columnspan=2)
 
 folderListBox.grid(row=baseRow+0,column=baseColumn+2,rowspan=2)
-folderAddButton.grid(row=baseRow+0,column=baseColumn+3)
-folderDeleteButton.grid(row=baseRow+1,column=baseColumn+3)
+folderPathButton.grid(row=baseRow+0,column=baseColumn+3)
+folderAddButton.grid(row=baseRow+1,column=baseColumn+3)
+folderDeleteButton.grid(row=baseRow+2,column=baseColumn+3)
 #folderRenameButton.grid(row=baseRow+2,column=baseColumn+3)
 
 
