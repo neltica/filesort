@@ -1,0 +1,46 @@
+##과제 설명 : "Enter Command <'h' for help>, <'Enter' for next cycle> =>h 누르면 help 페이지로, Enter누르면 쥐가 풀을 뜯어먹던 뭐를하던 프로그램 계속 작동...
+
+<<?mapWidth 79 mapHeight 24 seedCycle 6 offspringCycle 12 starvingMax 7 maxAge 25>>
+
+-maxAge는 동물(Creature)이 살 수 있는 최대의 나이 입니다.
+
+-쥐는 총 20마리, 쥐의 위치는 랜덤으로!
+
+-쥐는 자기가 있는 위치로 부터 동서남북 모든 방향으로 풀을 뜯어 먹을 수 있습니다(뜯어먹을 수 있는 방향 랜덤).
+
+-쥐가 풀을 뜯어 먹었을 경우 "."으로 표시해서 더이상 옥수수가 없다는 것을 나타내 줍니다.
+
+-seedCycle이라는 것은 풀이 다시 자라는 기간인 것 같습니다. !M!!! -> .M!!! 쥐가 왼쪽의 풀을 먹어서 왼쪽이 비게 되었는데 엔터를 6번 누르면 그 자리에 풀이 다시 자라게 됩니다.
+
+-엔터 12번 누르면 새로운 봄이 와서 다시 풀이 꽉차게 됩니다. (offspringCycle 12)?
+
+-쥐는 굶어죽을 수도 있습니다. 쥐는 동서남북 방향으로 있는 모든 풀들을 먹을 수 있지만 그 쥐가 있는 그 위치에서 4번째 떨어져 있는 곳까지에 있는 풀들만
+
+먹을 수 있습니다.
+
+?ex) 위아래로 다섯공간이 다 비어있음 & .....M.....이런식이면 풀이 멀리 떨어져있으면 못먹고 굶게 되는데 만약 엔터를 7번 누를 동안 아무것도 먹지 못했을 경우는
+
+? ? ?굶어 죽게됩니다. (starvingMax 7)
+
+?
+
+위의 만든 프로그램에 아래의 프로그램도 입력
+
+? Generate one Instant of class World Klasse World (Width-20, Heigth-10)
+
+? Insert of one Object to class Thing at the Position y=0, x=15
+
+? Insert of one Object to class Thing at the Position y=9, x=15
+
+? Query the object at position y = 0, x = 15 and type the characters printed on the
+
+Console ('.' If None) ->y=0,x=15에 자리에 위치한 것이 무엇인지 지도 아래에 출력하는 프로그램을 만들어야 합니다.
+
+? Query the object to the northern neighbor position of y = 0, x = 15 (Object(y=0,x=15)로 부터 북쪽에 위치한 것은 무엇인지 출력)
+
+? Delete of the Object which is at Position y=9, x=15(y=9, x=15에 위치한 Object를 삭제)
+
+?
+
+? Query the object to the northern neighbor position of y = 0, x = 15(삭제한 후에 Object(y=0,x=15)로 부터 북쪽에 위치한 것은 무엇인지 출력)
+
