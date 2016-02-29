@@ -332,6 +332,10 @@ def imageListClick(event):
             Tkinter.Label(folderNameSelectWindow,text=i).pack()
             number+=1
 
+        folderNameSelectEntry=Tkinter.Entry(folderNameSelectWindow)
+        folderNameSelectEntry.pack()
+        #folderNameSelectEntry.bind('<Return>',)
+
         folderNameSelectWindow.bind('<Key>',folderSelectCallback)
 
         app.wait_window(folderNameSelectWindow)
