@@ -85,7 +85,7 @@ def settingButtonCallback():
             enlistBox.insert('end',enEntry.get())
 
             file=open('setting.set','at')
-            file.write(enEntry.get()+"  "+hanEntry.get()+"\n")
+            file.write(enEntry.get().strip()+"  "+hanEntry.get().strip().encode('utf-8')+"\n")
             file.close()
             enEntry.delete(0,'end')
             hanEntry.delete(0,'end')
@@ -99,7 +99,7 @@ def settingButtonCallback():
             enlistBox.insert('end',enEntry.get())
 
             file=open('setting.set','at')
-            file.write(enEntry.get()+"  "+hanEntry.get()+"\n")
+            file.write(enEntry.get().strip()+"  "+hanEntry.get().strip().encode('utf-8')+"\n")
             file.close()
             enEntry.delete(0,'end')
             hanEntry.delete(0,'end')
