@@ -73,6 +73,13 @@ def settingButtonCallback():
     enEntry.bind('<Return>',enterCallback)
     hanEntry.bind('<Return>',enterCallback)
 
+
+def startButtonCallback():
+    if len(textList)!=0:
+        text=random.choice(textList)
+        content.set(text[1])
+startButton=Tkinter.Button(app,text='시작',command=startButtonCallback)
+startButton.grid(row=2,column=0)
 settingButton=Tkinter.Button(app,text='설정',command=settingButtonCallback)
-settingButton.grid(row=2,column=0)
+settingButton.grid(row=2,column=1)
 app.mainloop()
