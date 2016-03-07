@@ -15,7 +15,7 @@ if os.path.isfile('setting.set'):
     file.close()
 
 app=Tkinter.Tk()
-
+app.title('오픽용')
 app.geometry('700x100')
 
 app.grid_rowconfigure(0,weight=1)
