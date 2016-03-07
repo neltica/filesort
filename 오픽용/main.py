@@ -30,8 +30,10 @@ answerEntry.grid(row=2,column=0,columnspan=2)
 
 
 def answerEnterCallback(event):
+    englishContent.set(nowText[0])
     answerText=answerEntry.get().split('\n')[0].strip()
     questionText=nowText[0].split('\n')[0].strip()
+
 
     print answerText+" "+questionText
     if answerText.lower()==questionText.lower():
