@@ -10,6 +10,7 @@ import os
 if os.path.isfile('setting.set'):
     file=open('setting.set','rt')
     for i in file:
+        i=i.split('\n')[0]
         textList.append([i.split('  ')[0],i.split('  ')[1]])
     file.close()
 app=Tkinter.Tk()
@@ -26,6 +27,18 @@ englishLabel.grid(row=1,column=0,columnspan=2)
 
 answerEntry=Tkinter.Entry(app)
 answerEntry.grid(row=2,column=0,columnspan=2)
+
+
+def answerEnterCallback(event):
+    answerText=answerEntry.get().split('\n')[0].strip()
+    questionText=nowText[0].split('\n')[0].strip()
+
+    print answerText+" "+questionText
+    if answerText.lower()==questionText.lower():
+        print "정답"
+    else:
+        print "틀림"
+answerEntry.bind('<Return>',answerEnterCallback)
 
 
 def settingButtonCallback():
@@ -123,12 +136,15 @@ def startButtonCallback():
 startButton=Tkinter.Button(app,text='시작',command=startButtonCallback)
 startButton.grid(row=3,column=0)
 
+nextButton=Tkinter.Button(app,text='다음')
+nextButton.grid(row=3,column=1)
+
 def answerButton():
     englishContent.set(nowText[0])
 
 answerButton=Tkinter.Button(app,text='정답보기',command=answerButton)
-answerButton.grid(row=3,column=1)
+answerButton.grid(row=3,column=2)
 
 settingButton=Tkinter.Button(app,text='설정',command=settingButtonCallback)
-settingButton.grid(row=3,column=2)
+settingButton.grid(row=3,column=3)
 app.mainloop()
