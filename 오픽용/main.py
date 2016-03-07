@@ -13,20 +13,32 @@ if os.path.isfile('setting.set'):
         i=i.split('\n')[0]
         textList.append([i.split('  ')[0],i.split('  ')[1]])
     file.close()
+
 app=Tkinter.Tk()
+
+app.geometry('600x100')
+
+app.grid_rowconfigure(0,weight=1)
+app.grid_rowconfigure(1,weight=1)
+app.grid_rowconfigure(2,weight=1)
+app.grid_rowconfigure(3,weight=1)
+app.grid_columnconfigure(0,weight=1)
+app.grid_columnconfigure(1,weight=1)
+app.grid_columnconfigure(2,weight=1)
+
 
 content=Tkinter.StringVar()
 content.set("test")
 hangulLabel=Tkinter.Label(app,textvariable=content)
-hangulLabel.grid(row=0,column=0,columnspan=2)
+hangulLabel.grid(row=0,column=0,columnspan=3)
 
 englishContent=Tkinter.StringVar()
 #englishContent.set('123')
 englishLabel=Tkinter.Label(app,textvariable=englishContent)
-englishLabel.grid(row=1,column=0,columnspan=2)
+englishLabel.grid(row=1,column=0,columnspan=3)
 
 answerEntry=Tkinter.Entry(app)
-answerEntry.grid(row=2,column=0,columnspan=2)
+answerEntry.grid(row=2,column=0,columnspan=3,sticky='wens')
 
 
 def answerEnterCallback(event):
