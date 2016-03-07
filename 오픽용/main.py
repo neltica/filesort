@@ -16,7 +16,7 @@ if os.path.isfile('setting.set'):
 
 app=Tkinter.Tk()
 
-app.geometry('600x100')
+app.geometry('700x100')
 
 app.grid_rowconfigure(0,weight=1)
 app.grid_rowconfigure(1,weight=1)
