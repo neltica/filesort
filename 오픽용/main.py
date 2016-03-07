@@ -3,7 +3,15 @@ import Tkinter
 import random
 
 textList=[]
+nowText=[]
 
+
+import os
+if os.path.isfile('setting.set'):
+    file=open('setting.set','rt')
+    for i in file:
+        textList.append([i.split('  ')[0],i.split('  ')[1]])
+    file.close()
 app=Tkinter.Tk()
 
 content=Tkinter.StringVar()
@@ -108,11 +116,19 @@ def settingButtonCallback():
 
 
 def startButtonCallback():
+    global nowText
     if len(textList)!=0:
-        text=random.choice(textList)
-        content.set(text[1])
+        nowText=random.choice(textList)
+        content.set(nowText[1])
 startButton=Tkinter.Button(app,text='시작',command=startButtonCallback)
 startButton.grid(row=3,column=0)
+
+def answerButton():
+    englishContent.set(nowText[0])
+
+answerButton=Tkinter.Button(app,text='정답보기',command=answerButton)
+answerButton.grid(row=3,column=1)
+
 settingButton=Tkinter.Button(app,text='설정',command=settingButtonCallback)
-settingButton.grid(row=3,column=1)
+settingButton.grid(row=3,column=2)
 app.mainloop()
