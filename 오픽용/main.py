@@ -58,16 +58,22 @@ answerEntry.bind('<Return>',answerEnterCallback)
 def settingButtonCallback():
     settingWindow=Tkinter.Toplevel(app)
 
+    settingWindow.grid_rowconfigure(0,weight=1)
+    settingWindow.grid_rowconfigure(1,weight=1)
+    settingWindow.grid_columnconfigure(0,weight=1)
+    settingWindow.grid_columnconfigure(1,weight=1)
+
     Tkinter.Label(settingWindow,text='영어').grid(row=0,column=0)
     Tkinter.Label(settingWindow,text='한글').grid(row=0,column=1)
-    enlistBox=Tkinter.Listbox(settingWindow,exportselection=0)
+    enlistBox=Tkinter.Listbox(settingWindow,width=100,exportselection=0)
     enlistBox.grid(row=1,column=0)
     def enListBoxCallback(event):
         if len(hanlistBox.curselection())!=0:
             hanlistBox.select_clear(hanlistBox.curselection()[0],hanlistBox.curselection()[0])
         hanlistBox.select_set(enlistBox.curselection()[0],enlistBox.curselection()[0])
     enlistBox.bind('<<ListboxSelect>>',enListBoxCallback)
-    hanlistBox=Tkinter.Listbox(settingWindow,exportselection=0)
+
+    hanlistBox=Tkinter.Listbox(settingWindow,width=100,exportselection=0)
     hanlistBox.grid(row=1,column=1)
     def hanListBoxCallback(event):
         if len(enlistBox.curselection())!=0:
@@ -106,10 +112,10 @@ def settingButtonCallback():
     delButton.grid(row=1,column=2)
 
     Tkinter.Label(settingWindow,text='영어').grid(row=2,column=0)
-    enEntry=Tkinter.Entry(settingWindow)
+    enEntry=Tkinter.Entry(settingWindow,width=100)
     enEntry.grid(row=2,column=1)
     Tkinter.Label(settingWindow,text='해석').grid(row=3,column=0)
-    hanEntry=Tkinter.Entry(settingWindow)
+    hanEntry=Tkinter.Entry(settingWindow,width=100)
     hanEntry.grid(row=3,column=1)
 
 
