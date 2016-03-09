@@ -28,7 +28,7 @@ app.grid_columnconfigure(2,weight=1)
 
 
 content=Tkinter.StringVar()
-content.set("test")
+content.set("지문")
 hangulLabel=Tkinter.Label(app,textvariable=content)
 hangulLabel.grid(row=0,column=0,columnspan=3)
 
