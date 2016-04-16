@@ -1,3 +1,7 @@
+
+# -*- coding:utf-8 -*-
+
+import os
 ch=''    #문자열을 저장하는 글로벌 변수입니다.
 errflag=0      # 과제에 있던 errFlag
 
@@ -54,3 +58,5 @@ if not errflag and ch[chIndex]=='$':                     #만약 errflag가 Fals
     print("OK")
 else:
     error()                                #충족이 안되면 error()를 호출합니다.
+
+os.system('Pause')
